@@ -1,10 +1,8 @@
 #!bin/bash
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
-git clone https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x --depth=1 gcc
-git clone https://github.com/najahiiii/aarch64-linux-gnu -b 4.9-32-mirror --depth=1 gccarm
+git clone -j32 https://github.com/kdrag0n/aarch64-elf-gcc -b 9.x --depth=1 gcc
 
 GCC="$(pwd)/gcc/bin/aarch64-elf-"
-GCCARM="$(pwd)/gccarm/bin/arm-linux-androideabi-"
 curl -s -X POST https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendMessage?chat_id=-1001314216463 -d "disable_web_page_preview=true" -d "parse_mode=html&text=<b>// BlueOcean //</b>%0ACompile Started"'!'"%0A<b>For device</b> <code>Rolex (Redmi 4A)</code>%0A<b>For Oreo/Pie</b>%0A<b>Under Commit</b> <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A<b>Compiler</b> <code>$(${GCC}gcc --version | head -n 1)</code>%0A<b>Compiler</b> <code>$(${GCCARM}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #untested"
 tanggal=$(date +'%H%M-%d%m%y')
 START=$(date +"%s")
@@ -12,23 +10,13 @@ export ARCH=arm64
 export KBUILD_BUILD_USER=Muhammadfadlyas
 export KBUILD_BUILD_HOST=AyamGoreng
 }
-# Function upload logs to my own server paste
-function paste() {
-        cat build.log | curl -F 'chips=<-' https://chipslogs.herokuapp.com > link
-        HASIL="$(cat link)"
-}
 # Fin Error
 function finerr() {
-	paste
-        curl -s -X POST "https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendMessage" \
-			-d chat_id="$-1001314216463" \
-			-d "disable_web_page_preview=true" \
-			-d "parse_mode=markdown" \
-			-d text="Job Baking Chips throw an error(s) | **Build logs** [here](${HASIL})"
+        curl -s -X POST https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendMessage?chat_id=-1001314216463 -d "disable_web_page_preview=true" -d "parse_mode=html&text=Build throw an error(s)"
         exit 1
 }
 make -s -C $(pwd) O=out rolex_defconfig
-        make -C $(pwd) CROSS_COMPILE_ARM32=${GCCARM} CROSS_COMPILE=${GCC} O=out -j32 -l12 2>&1| tee build.log
+        make -C $(pwd) CROSS_COMPILE=${GCC} O=out -j32 -l12 2>&1| tee build.log
 if ! [ -a $IMAGE ]; then
 	finerr
 	exit 1
