@@ -18,7 +18,6 @@ if ! [ -a $IMAGE ]; then
 fi
 cp out/arch/arm64/boot/Image.gz-dtb AnyKernel/zImage
 paste
-
 cd AnyKernel
 zip -r9 blueocean-${tanggal}.zip *
 END=$(date +"%s")
