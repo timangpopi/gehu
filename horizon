@@ -11,7 +11,7 @@ export KBUILD_BUILD_USER=Muhammadfadlyas
 export KBUILD_BUILD_HOST=AyamGoreng
 
 make -s -C $(pwd) O=out rolex_defconfig
-make -C $(pwd) CROSS_COMPILE=${GCC} O=out -j8 -l12 2>&1| tee build.log
+make -C $(pwd) CROSS_COMPILE=${GCC} O=out -j32 -l12 2>&1| tee build.log
 if ! [ -a $IMAGE ]; then
 	finerr
 	exit 1
