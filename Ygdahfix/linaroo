@@ -3,7 +3,7 @@ IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 git clone https://github.com/ProtoChuz/linaro-mirror.git -b 5.5-64 gcc
 
 GCC="$(pwd)/gcc/bin/aarch64-elf-"
-curl -s -X POST https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=<b>✦SteelHeart-Q.1-LA.UM.7.6.r1-05300-89xx.0✦</b>%0ACompile Started"'!'"%0A<b>For device</b> <code>Rolex (Redmi 4A)</code>%0A<b>From Branch Lineage-16.0</b>%0A<b>Under Commit</b> <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A<b>Compiler</b> <code>$(${GCC}gcc --version | head -n 1)</code>%0A<b>Compiler</b> <code>$(${GCCARM}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #stable"
+curl -s -X POST https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=<b>✦SteelHeart-Q.1-LA.UM.7.6.r1-05300-89xx.0✦</b>%0ACompile Started"'!'"%0A<b>For device</b> <code>Rolex (Redmi 4A)</code>%0A<b>For Oreo/Pie</b>%0A<b>Under Commit</b> <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A<b>Compiler</b> <code>$(${GCC}gcc --version | head -n 1)</code>%0A<b>Compiler</b> <code>$(${GCCARM}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #stable"
 tanggal=$(date +'%H%M-%d%m%y')
 START=$(date +"%s")
 export ARCH=arm64
