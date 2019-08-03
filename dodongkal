@@ -1,0 +1,35 @@
+#!bin/bash
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
+git clone https://github.com/ProtoChuz/linaro-mirror.git -b 5.5-64 gcc
+
+GCC="$(pwd)/gcc/bin/aarch64-elf-"
+curl -s -F chat_id=-1001314216463 -F sticker="CAADBQADsAADfULDLi7M_9kl2KMnFgQ" https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendSticker
+curl -s -X POST https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendMessage?chat_id=-1001314216463 -d "disable_web_page_preview=true" -d text="<b>SteelHeart-Q.1</b> new build is up%0AStarted on <code>SemaphoreCI</code>%0AFor device <b>ROLEX</b> (Redmi 4A)%0Abranch <code>$(git rev-parse --abbrev-ref HEAD)</code> (Android 9.0/Pie)%0AUnder commit<code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0AUsing compiler: <code>$(${GCC}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #stable"
+tanggal=$(TZ=Asia/Jakarta date +'%H%M-%d%m%y')
+START=$(date +"%s")
+export ARCH=arm64
+export KBUILD_BUILD_USER=Mmhmdfas
+export KBUILD_BUILD_HOST=FriedChicken
+
+# Fin Error
+function finerr() {
+        sprunge
+        curl -s -X POST https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendMessage?chat_id=-1001314216463 -d "disable_web_page_preview=true" -d "parse_mode=html&text=Build throw an error(s) "
+        exit 1
+}
+make -s -C $(pwd) O=out rolex_defconfig
+make -s -C $(pwd) CROSS_COMPILE=${GCC} O=out -j32 -l12 2>&1| tee build.log
+if ! [ -a $IMAGE ]; then
+	exit 1
+fi
+cp out/arch/arm64/boot/Image.gz-dtb AnyKernel/zImage
+sprunge
+cd AnyKernel
+zip -r9 blueocean-${tanggal}.zip *
+END=$(date +"%s")
+DIFF=$(($END - $START))
+curl -F chat_id="-1001314216463" -F document=@"blueocean-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) <b>#Sunny</b> " https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendDocument
+cd ..
+rm -rf out
+rm -rf AnyKernel/zImage
+rm -rf AnyKernel/blueocean *.zip
