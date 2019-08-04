@@ -28,7 +28,7 @@ cd AnyKernel
 zip -r9 blueocean-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
-curl -F chat_id="-1001314216463" -F document=@"blueocean-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s)</b> #sunny " https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendDocument
+curl -F chat_id="-1001314216463" -F document=@"blueocean-${tanggal}.zip" -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny" https://api.telegram.org/bot869223630:AAGcCNFXbAxWT-SLowVzcQHXePXToulnPnw/sendDocument
 cd ..
 rm -rf out
 rm -rf AnyKernel/zImage
