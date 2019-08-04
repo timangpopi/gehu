@@ -28,7 +28,7 @@ cd AnyKernel
 zip -r9 steelheart-friedchicken-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
-curl -F chat_id="-1001158707255" -F document=@"steelheart-friedchicken-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
+curl -F chat_id="-1001158707255" -F document=@"steelheart-friedchicken-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nowomannocry" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
 rm -rf AnyKernel/zImage
