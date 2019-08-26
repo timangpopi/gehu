@@ -1,6 +1,6 @@
 #!bin/bash
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
-git clone https://github.com/najahiiii/aarch64-linux-gnu.git -b 4.9-mirror lol
+git clone https://github.com/ProtoChuz/linaro-mirror.git -b 5.5-64 gcc
 git clone https://github.com/ryan-andri/aarch64-linaro-linux-gnu-4.9.git -b master gcclinaro
 git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-10.0.0/arm64 elf
 echo "clone any kornol plox"
@@ -11,7 +11,7 @@ echo "Clone any kornol plox"
 git clone https://github.com/fadlyas/anykernel2 anykernel4
 echo "Time To Compile All"
 echo "GCC 4.9 coming"
-GCC="$(pwd)/lol/bin/aarch64-linux-android-"
+GCC="$(pwd)/gcc/bin/aarch64-linux-android-"
 echo "Linaro GCC 4.9 coming"
 LINARO="$(pwd)/gcclinaro/bin/aarch64-linux-gnu-"
 echo "GCC 10 ELF Coming"
