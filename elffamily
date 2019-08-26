@@ -64,7 +64,7 @@ rm -rf out
 rm -rf anykernel3
 
 make -s -C $(pwd) -j48 O=out rolex_defconfig
-make -s -C $(pwd) CROSS_COMPILE="${ELF}" O=out -j69 -l60 2>&1| tee build.log
+make -s -C $(pwd) CROSS_COMPILE="${GCC10}" O=out -j69 -l60 2>&1| tee build.log
 if ! [ -a $IMAGE ]; then
 	exit 1
 fi
