@@ -1,0 +1,80 @@
+#!bin/bash
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
+echo "W E L C O M E ! ! ! "
+git clone https://github.com/ProtoChuz/linaro-mirror.git -b 5.5-64 gcc
+git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-9.2.0/arm64 gcc9
+git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-10.0.0/arm64 gcc10
+git clone https://github.com/fadlyas/anykernel2 
+git clone https://github.com/fadlyas/anykernel2 anykernel3
+git clone https://github.com/fadlyas/anykernel2 anykernel4
+echo "done"
+GCC="$(pwd)/gcc/bin/aarch64-elf-"
+GCC9="$(pwd)/gcc9/bin/aarch64-elf-"
+GCC10="$(pwd)/gcc10/bin/aarch64-elf-"
+curl -s -F chat_id=-1001158707255 -F sticker="CAADBQADsAADfULDLi7M_9kl2KMnFgQ" https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendSticker
+curl -s -X POST https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=<b>SteelHeart Darkside is up!!</b>%0ACompile Started"'!'"%0A<b>For device</b> <code>Rolex (Redmi 4A)</code>%0AFrom branch <code>$(git rev-parse --abbrev-ref HEAD)</code>%0A<b>Under Commit</b> <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A<b>Compiler</b> <code>$(${GCC}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #untested"
+tanggal=$(TZ=Jakarta date +'%H%M-%d%m%y')
+START=$(date +"%s")
+export ARCH=arm64
+export KBUILD_BUILD_USER=mhmmdfas
+export KBUILD_BUILD_HOST=steelheart-darkside
+export USE_CCACHE=1
+export CACHE_DIR=~/.ccache
+# Sprunge
+function sprunge() {
+    cat build.log | curl -F 'sprunge=<-' http://sprunge.us > link
+    HASIL="$(cat link)"
+}
+# Fin Error
+function finerr() {
+        sprunge
+        curl -s -X POST https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=Build throw an error(s) | <b>Build logs</b> <a href='${HASIL}'>here</a>"
+        exit 1
+}
+make -s -C $(pwd) -j48 O=out rolex_defconfig
+make -s -C $(pwd) CROSS_COMPILE="${GCC}" O=out -j69 -l60 2>&1| tee build.log
+if ! [ -a $IMAGE ]; then
+	exit 1
+fi
+cp out/arch/arm64/boot/Image.gz-dtb anykernel2/zImage
+paste
+cd anykernel2
+zip -r9 steelheart-pie-gcommon-${tanggal}.zip *
+END=$(date +"%s")
+DIFF=$(($END - $START))
+curl -F chat_id="-1001158707255" -F document=@"steelheart-pie-gcommon-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${GCC}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendDocument
+cd ..
+rm -rf out
+rm -rf anykernel2
+
+make -s -C $(pwd) -j48 O=out rolex_defconfig
+make -s -C $(pwd) CROSS_COMPILE="${GCC9}" O=out -j69 -l60 2>&1| tee build.log
+if ! [ -a $IMAGE ]; then
+	exit 1
+fi
+cp out/arch/arm64/boot/Image.gz-dtb anykernel3/zImage
+paste
+cd anykernel3
+zip -r9 steelheart-pie-gcommon-${tanggal}.zip *
+END=$(date +"%s")
+DIFF=$(($END - $START))
+curl -F chat_id="-1001158707255" -F document=@"steelheart-pie-gcommon-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${GCC9}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendDocument
+cd ..
+rm -rf out
+rm -rf anykernel3
+
+make -s -C $(pwd) -j48 O=out rolex_defconfig
+make -s -C $(pwd) CROSS_COMPILE="${GCC10}" O=out -j69 -l60 2>&1| tee build.log
+if ! [ -a $IMAGE ]; then
+	exit 1
+fi
+cp out/arch/arm64/boot/Image.gz-dtb anykernel4/zImage
+paste
+cd anykernel4
+zip -r9 steelheart-pie-gcommon-${tanggal}.zip *
+END=$(date +"%s")
+DIFF=$(($END - $START))
+curl -F chat_id="-1001158707255" -F document=@"steelheart-pie-gcommon-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${GCC10}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendDocument
+cd ..
+rm -rf out
+rm -rf anykernel4
