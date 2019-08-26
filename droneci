@@ -1,21 +1,21 @@
 #!bin/bash
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
-git clone https://github.com/najahiiii/aarch64-linux-gnu -b 4.9-mirror gcc
-git clone https://github.com/ryan-andri/aarch64-linaro-linux-gnu-4.9 -b master linaro
-git clone https://github.com/najahiiii/priv-toolchains -b elf/gcc-10.0.0/arm64 gccc
+git clone https://github.com/najahiiii/aarch64-linux-gnu.git -b 4.9-mirror gcc
+git clone https://github.com/ryan-andri/aarch64-linaro-linux-gnu-4.9.git -b master gcclinaro
+git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-10.0.0/arm64 elf
 echo "clone any kornol plox"
 git clone https://github.com/fadlyas/anykernel2 
 echo "Clone any kornol plox"
-git clone https://github.com/fadlyas/anykernel2 gnu
+git clone https://github.com/fadlyas/anykernel2 anykernel3
 echo "Clone any kornol plox"
-git clone https://github.com/fadlyas/anykernel2 cclang
+git clone https://github.com/fadlyas/anykernel2 anykernel4
 echo "Time To Compile All"
 echo "GCC 4.9 coming"
 GCC="$(pwd)/gcc/bin/aarch64-linux-android-"
 echo "Linaro GCC 4.9 coming"
-LINARO="$(pwd)/linaro/bin/aarch64-linux-gnu-"
+LINARO="$(pwd)/gcclinaro/bin/aarch64-linux-gnu-"
 echo "GCC 10 ELF Coming"
-ELF="$(pwd)/gccc/bin/aarch64-elf-"
+ELF="$(pwd)/elf/bin/aarch64-elf-"
 echo "Time To Compile All"
 curl -s -F chat_id=-1001158707255 -F sticker="CAADBQADsAADfULDLi7M_9kl2KMnFgQ" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendSticker
 curl -s -X POST https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=<b>SteelHeart Darkside is up!!</b>%0ACompile Started"'!'"%0A<b>For device</b> <code>Rolex (Redmi 4A)</code>%0A<b>For Android Oreo or Android Pie</b>%0A<b>Under Commit</b> <code>$(git log --pretty=format:'"%h : %s"' -1)</code>%0A<b>Compiler</b> <code>$(${GCC}gcc --version | head -n 1)</code>%0AStarted on <code>$(TZ=Asia/Jakarta date)</code>%0A<b>Build Status:</b> #untested"
@@ -23,7 +23,7 @@ tanggal=$(TZ=Jakarta date +'%H%M-%d%m%y')
 START=$(date +"%s")
 export ARCH=arm64
 export KBUILD_BUILD_USER=mhmmdfas
-export KBUILD_BUILD_HOST=steelheart
+export KBUILD_BUILD_HOST=steelheart-darkside
 export USE_CCACHE=1
 export CACHE_DIR=~/.ccache
 # Fin Error
@@ -56,29 +56,29 @@ make -s -C $(pwd) CROSS_COMPILE="${LINARO}" O=out -j60 -l50 2>&1| tee build.log
 if ! [ -a $IMAGE ]; then
 	exit 1
 fi
-cp out/arch/arm64/boot/Image.gz-dtb gnu/zImage
+cp out/arch/arm64/boot/Image.gz-dtb anykernel3/zImage
 paste
-cd gnu
+cd anykernel3
 zip -r9 SteelHeart-Hardcore-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
 curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #stable | <b>$(${LINARO}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
-rm -rf gnu
+rm -rf anykernel3
 
 make -s -C $(pwd) -j48 O=out rolex_defconfig
 make -s -C $(pwd) CROSS_COMPILE="${ELF}" O=out -j60 -l50 2>&1| tee build.log
 if ! [ -a $IMAGE ]; then
 	exit 1
 fi
-cp out/arch/arm64/boot/Image.gz-dtb cclang/zImage
+cp out/arch/arm64/boot/Image.gz-dtb anykernel4/zImage
 paste
-cd cclang
+cd anykernel4
 zip -r9 SteelHeart-Hardcore-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
 curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #stable | <b>$(${ELF}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
-rm -rf cclang
+rm -rf anykernel4
