@@ -11,7 +11,7 @@ echo "Clone any kornol plox"
 git clone https://github.com/fadlyas/anykernel2 anykernel4
 echo "Time To Compile All"
 echo "GCC 4.9 coming"
-GCC="$(pwd)/gcc/bin/aarch64-linux-android-"
+GCC="$(pwd)/gcc/bin/aarch64-elf-"
 echo "Linaro GCC 4.9 coming"
 LINARO="$(pwd)/gcclinaro/bin/aarch64-linux-gnu-"
 echo "GCC 10 ELF Coming"
