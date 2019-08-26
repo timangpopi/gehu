@@ -48,7 +48,7 @@ cd anykernel2
 zip -r9 SteelHeart-Hardcore-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
-curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #stable | <b>$(${GCC}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
+curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${GCC}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
 rm -rf anykernel2
@@ -64,7 +64,7 @@ cd anykernel3
 zip -r9 SteelHeart-Hardcore-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
-curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #stable | <b>$(${LINARO}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
+curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${LINARO}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
 rm -rf anykernel3
@@ -80,7 +80,7 @@ cd anykernel4
 zip -r9 SteelHeart-Hardcore-${tanggal}.zip *
 END=$(date +"%s")
 DIFF=$(($END - $START))
-curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #stable | <b>$(${ELF}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
+curl -F chat_id="-1001158707255" -F document=@"SteelHeart-Hardcore-${tanggal}.zip " -F "disable_web_page_preview=true" -F "parse_mode=html" -F caption="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s) | #sunny | #nightly | <b>$(${ELF}gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>" https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendDocument
 cd ..
 rm -rf out
 rm -rf anykernel4
