@@ -26,14 +26,16 @@ export KBUILD_BUILD_USER=mhmmdfas
 export KBUILD_BUILD_HOST=steelheart-darkside
 export USE_CCACHE=1
 export CACHE_DIR=~/.ccache
+# Sprunge
+function sprunge() {
+    cat build.log | curl -F 'sprunge=<-' http://sprunge.us > link
+    HASIL="$(cat link)"
+}
 # Fin Error
 function finerr() {
-    curl -s -X POST "https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendMessage" \
-        -d chat_id="-1001158707255" \
-        -d "disable_web_page_preview=true" \
-        -d "parse_mode=markdown" \
-        -d text="SteelHeart Build throw an error(s)"
-    exit 1
+        sprunge
+        curl -s -X POST https://api.telegram.org/bot804021619:AAGsNtz-PiDmnuyoIg_lpKVghK_8WmxSbIQ/sendMessage?chat_id=-1001158707255 -d "disable_web_page_preview=true" -d "parse_mode=html&text=Build throw an error(s) | <b>Build logs</b> <a href='${HASIL}'>here</a>"
+        exit 1
 }
 make -s -C $(pwd) -j48 O=out rolex_defconfig
 make -s -C $(pwd) CROSS_COMPILE="${GCC}" O=out -j60 -l50 2>&1| tee build.log
