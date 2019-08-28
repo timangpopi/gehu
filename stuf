@@ -1,14 +1,14 @@
 #!bin/bash
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 echo "Welcome To SteelHeart Oven Kornol Ploxx"
-git clone https://github.com/ProtoChuz/linaro-mirror.git -b 5.5-64 gcc
+git clone https://github.com/najahiiii/aarch64-linux-gnu.git -b linaro8-20190402 gcc
 git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-9.2.0/arm64 gcc9
 git clone https://github.com/najahiiii/priv-toolchains.git -b elf/gcc-10.0.0/arm64 gcc10
 git clone https://github.com/fadlyas/anykernel2 
 git clone https://github.com/fadlyas/anykernel2 anykernel3
 git clone https://github.com/fadlyas/anykernel2 anykernel4
 echo "done"
-GCC="$(pwd)/gcc/bin/aarch64-elf-"
+GCC="$(pwd)/gcc/bin/aarch64-linux-gnu-"
 GCC9="$(pwd)/gcc9/bin/aarch64-elf-"
 GCC10="$(pwd)/gcc10/bin/aarch64-elf-"
 curl -s -F chat_id=-1001158707255 -F sticker="CAADBQAD3AADfULDLpHzWZltpdJ5FgQ" https://api.telegram.org/bot961309167:AAHAtYQIDZgCpL8V_Pn5LYyozC5V0KJy3SE/sendSticker
